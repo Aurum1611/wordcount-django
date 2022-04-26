@@ -1,6 +1,7 @@
 import operator
 from django.http import HttpResponse
 from django.shortcuts import render
+import re
 
 
 def homepage(request):
@@ -18,7 +19,8 @@ def lemons(request):
 
 def count(req):
     alltext = req.GET['alltext']
-    words = alltext.split()
+    pure_text = re.sub(r'[^\w\s]', ' ', alltext)
+    words = pure_text.split()
     wordcount = dict()
     
     for word in words:
